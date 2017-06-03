@@ -9,18 +9,17 @@ public class SocketCode : MonoBehaviour {
 	SocketManager manager;
 	// Use this for initialization
 	void Start () {
-		manager = new SocketManager(new Uri("ws://localhost:4321/socket.io/"));
-		Socket root = manager.Socket;
-		manager.Socket.Once ("connect", OnSocketConnect);
-		manager.Socket.On("location update", OnLocationUpdate);
+		manager = new SocketManager(new Uri("http://localhost:4321/socket.io/"));
+		manager.Socket.Once ("connect", OnConnect);
+		manager.Socket.On("update location", OnMessage);
 	}
 
-	public void OnSocketConnect(Socket socket, Packet packet, params object[] args) {
+	void OnConnect(Socket socket, Packet packet, params object[] args) {
 		Debug.Log ("Connect!");
 	}
 
-	public void OnLocationUpdate(Socket socket, Packet packet, params object[] args) {
-		this.gameObject.GetComponent<GUIText>().text = "GET!!!";
+	void OnMessage(Socket socket, Packet packet, params object[] args) {
+		Debug.Log(string.Format("Message from {0}: {1}", args[0], args[1]));
 	}
 	
 	// Update is called once per frame
