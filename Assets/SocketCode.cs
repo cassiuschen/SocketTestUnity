@@ -21,7 +21,8 @@ public class SocketCode : MonoBehaviour {
 	void OnMessage(Socket socket, Packet packet, params object[] args) {
 		Debug.Log(string.Format("Message from {0}: {1}", args[0], args[1]));
 	}
-	
+	// manager.Socket.Emit("update location", locationX, locationZ);
+
 	// Update is called once per frame
 	void Update () {
 		
